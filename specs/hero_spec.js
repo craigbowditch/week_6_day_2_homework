@@ -57,4 +57,11 @@ describe("Hero", function(){
     const actual = hero.sortByDifficulty();
     assert.deepStrictEqual(actual, [task2, task1, task3]);
   })
+  it("should sort tasks by urgency", function(){
+    hero.addTask(task1);
+    hero.addTask(task2);
+    hero.addTask(task3);
+    const actual = hero.sortByUrgency();
+    assert.deepStrictEqual(actual, [task2, task3, task1]);
+  })
 })
