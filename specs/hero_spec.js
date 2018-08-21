@@ -7,6 +7,7 @@ const Task = require('../models/task.js');
 describe("Hero", function(){
   beforeEach(function(){
     hero = new Hero("Captain Planet", "justice");
+    task = new Task(4, 8, 50)
   })
   it("should have a name", function(){
     const actual = hero.name;
@@ -37,5 +38,14 @@ describe("Hero", function(){
     const food = new Food("justice", 10)
     const actual = hero.eatFood(food);
     assert.strictEqual(actual, 115);
+  })
+  it("should get number of tasks", function(){
+    const actual = hero.numberOfTasks();
+    assert.strictEqual(actual, 0);
+  })
+  it("should add task to task array", function(){
+    hero.addTask(task)
+    const actual = hero.numberOfTasks();
+    assert.strictEqual(actual, 1);
   })
 })
