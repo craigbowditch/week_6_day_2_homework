@@ -7,7 +7,9 @@ const Task = require('../models/task.js');
 describe("Hero", function(){
   beforeEach(function(){
     hero = new Hero("Captain Planet", "justice");
-    task = new Task(4, 8, 50)
+    task1 = new Task(4, 8, 50);
+    task2 = new Task(2, 5, 30);
+    task3 = new Task(9, 6, 40);
   })
   it("should have a name", function(){
     const actual = hero.name;
@@ -44,8 +46,15 @@ describe("Hero", function(){
     assert.strictEqual(actual, 0);
   })
   it("should add task to task array", function(){
-    hero.addTask(task)
+    hero.addTask(task1);
     const actual = hero.numberOfTasks();
     assert.strictEqual(actual, 1);
+  })
+  it("should sort tasks by difficulty", function(){
+    hero.addTask(task1);
+    hero.addTask(task2);
+    hero.addTask(task3);
+    const actual = hero.sortByDifficulty();
+    assert.deepStrictEqual(actual, [task2, task1, task3]);
   })
 })
