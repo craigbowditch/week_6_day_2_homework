@@ -39,4 +39,13 @@ Hero.prototype.sortByUrgency = function() {
   }
   return this.tasks.sort(sortUrgency);
 }
+
+Hero.prototype.sortByReward = function() {
+  function sortReward(a, b) {
+    return a.reward - b.reward;
+  }
+  return this.tasks.sort(sortReward);
+}
+
+
 module.exports = Hero;
