@@ -20,4 +20,8 @@ describe("Task", function(){
     const actual = task.reward;
     assert.strictEqual(actual, 50);
   })
+  it("should start as not completed", function(){
+    const actual = task.taskIsCompleted;
+    assert.strictEqual(actual, false);
+  })
 })

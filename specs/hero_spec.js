@@ -28,4 +28,9 @@ describe("Hero", function(){
     const actual = hero.talk();
     assert.strictEqual(actual, "By your powers combined..I am Captain Planet");
   })
+  it("should be able to eat food and replenish health", function(){
+    const food = new Food("cheese", 10);
+    const actual = hero.eatFood(food);
+    assert.strictEqual(actual, 110);
+  })
 })
