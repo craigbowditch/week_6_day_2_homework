@@ -33,4 +33,9 @@ describe("Hero", function(){
     const actual = hero.eatFood(food);
     assert.strictEqual(actual, 110);
   })
+  it("should increase replenish value by 1.5 if favourite food eaten", function(){
+    const food = new Food("justice", 10)
+    const actual = hero.eatFood(food);
+    assert.strictEqual(actual, 115);
+  })
 })
