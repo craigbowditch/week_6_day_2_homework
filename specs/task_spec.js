@@ -1,8 +1,7 @@
 const assert = require('assert');
-const Hero = require('../models/hero.js');
-const Food = require('../models/food.js');
 const Task = require('../models/task.js');
 
+let task;
 describe("Task", function(){
   beforeEach(function(){
     task = new Task(10, 7, 50);
@@ -21,7 +20,12 @@ describe("Task", function(){
     assert.strictEqual(actual, 50);
   })
   it("should start as not completed", function(){
-    const actual = task.taskIsCompleted;
+    const actual = task.isCompleted;
     assert.strictEqual(actual, false);
+  })
+  it("should be bale to be marked as complete", function(){
+    task.markAsCompleted();
+    const actual = task.isCompleted;
+    assert.strictEqual(actual, true);
   })
 })

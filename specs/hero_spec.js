@@ -3,6 +3,10 @@ const Hero = require('../models/hero.js');
 const Food = require('../models/food.js');
 const Task = require('../models/task.js');
 
+let hero;
+let task1;
+let task2;
+let task3;
 
 describe("Hero", function(){
   beforeEach(function(){
@@ -30,45 +34,69 @@ describe("Hero", function(){
   it("should be able to say name", function(){
     const actual = hero.talk();
     assert.strictEqual(actual, "By your powers combined..I am Captain Planet");
-  })
-  it("should be able to eat food and replenish health", function(){
-    const food = new Food("cheese", 10);
-    const actual = hero.eatFood(food);
-    assert.strictEqual(actual, 110);
-  })
-  it("should increase replenish value by 1.5 if favourite food eaten", function(){
-    const food = new Food("justice", 10)
-    const actual = hero.eatFood(food);
-    assert.strictEqual(actual, 115);
-  })
+  });
+
+  describe("Hero and food", function(){
+    it("should be able to eat food and replenish health", function(){
+      const food = new Food("cheese", 10);
+      hero.eatFood(food);
+      const actual = hero.health;
+      assert.strictEqual(actual, 110);
+    })
+    it("should increase replenishment value by 1.5 if favourite food eaten", function(){
+      const food = new Food("justice", 10)
+      hero.eatFood(food);
+      const actual = hero.health;
+      assert.strictEqual(actual, 115);
+    });
+  });
+
   it("should get number of tasks", function(){
     const actual = hero.numberOfTasks();
     assert.strictEqual(actual, 0);
-  })
+  });
   it("should add task to task array", function(){
     hero.addTask(task1);
     const actual = hero.numberOfTasks();
     assert.strictEqual(actual, 1);
-  })
+  });
   it("should sort tasks by difficulty", function(){
     hero.addTask(task1);
     hero.addTask(task2);
     hero.addTask(task3);
-    const actual = hero.sortByDifficulty();
-    assert.deepStrictEqual(actual, [task2, task1, task3]);
-  })
+    hero.sortTasks("difficulty");
+    assert.deepStrictEqual(hero.tasks, [task2, task1, task3]);
+  });
   it("should sort tasks by urgency", function(){
     hero.addTask(task1);
     hero.addTask(task2);
     hero.addTask(task3);
-    const actual = hero.sortByUrgency();
-    assert.deepStrictEqual(actual, [task2, task3, task1]);
-  })
+    hero.sortTasks("urgency");
+    assert.deepStrictEqual(hero.tasks, [task2, task3, task1]);
+  });
   it("should sort tasks by reward", function(){
     hero.addTask(task1);
     hero.addTask(task2);
     hero.addTask(task3);
-    const actual = hero.sortByReward();
-    assert.deepStrictEqual(actual, [task2, task3, task1]);
-  })
-})
+    hero.sortTasks("reward");
+    assert.deepStrictEqual(hero.tasks, [task2, task3, task1]);
+  });
+  it("should be able to view completed tasks", function(){
+    hero.addTask(task1);
+    hero.addTask(task2);
+    hero.addTask(task3);
+    task2.markAsCompleted()
+    const actual = hero.getCompletedTasks();
+    assert.deepStrictEqual(actual, [task2]);
+  });
+
+  it("should be able to view incompleted tasks", function(){
+    hero.addTask(task1);
+    hero.addTask(task2);
+    hero.addTask(task3);
+    task2.markAsCompleted()
+    task3.markAsCompleted()
+    const actual = hero.getIncompletedTasks();
+    assert.deepStrictEqual(actual, [task1]);
+  });
+});

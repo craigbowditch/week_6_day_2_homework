@@ -1,8 +1,7 @@
 const assert = require('assert');
-const Hero = require('../models/hero.js');
 const Food = require('../models/food.js');
-const Task = require('../models/task.js');
 
+let food;
 describe("Food", function(){
   beforeEach(function(){
     food = new Food("veal", 10);

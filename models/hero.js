@@ -26,26 +26,19 @@ Hero.prototype.addTask = function(task){
   return this.tasks.push(task);
 };
 
-Hero.prototype.sortByDifficulty = function() {
-  function sortDifficulty(a, b) {
-    return a.difficulty - b.difficulty;
-  }
-  return this.tasks.sort(sortDifficulty);
+Hero.prototype.sortTasks = function(property) {
+  this.tasks.sort(function(a, b){
+    return a[property] - b[property];
+  });
 }
 
-Hero.prototype.sortByUrgency = function() {
-  function sortUrgency(a, b) {
-    return a.urgency - b.urgency;
-  }
-  return this.tasks.sort(sortUrgency);
-}
+Hero.prototype.getCompletedTasks = function(){
+  return this.tasks.filter(task => task.isCompleted)
+};
 
-Hero.prototype.sortByReward = function() {
-  function sortReward(a, b) {
-    return a.reward - b.reward;
-  }
-  return this.tasks.sort(sortReward);
-}
+Hero.prototype.getIncompletedTasks = function(){
+  return this.tasks.filter(task => !task.isCompleted)
+};
 
 
 module.exports = Hero;
